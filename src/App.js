@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Tail from './images/tail.png';
+import Head from './images/head.png';
 
-function App() {
+const App = () => {
+  const [totalFlip, setTotalFlip] = useState(0);
+  const [heads, setHeads] = useState(0);
+  const [tails, setTails] = useState(0);
+  const [currentState, setCurrentState] = useState();
+
+  const flipCoin = () => {
+    let _number = Math.floor(Math.random() * 2);
+    setTotalFlip(totalFlip + 1);
+    if(_number === 1){
+      setTails(tails + 1)
+      setCurrentState('tail');
+    }else{
+      setHeads(heads + 1);
+      setCurrentState('head');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="page">
+      <div>Coin State</div>
+      <div>
+        {currentState === 'tail' && <img src={Tail} alt="tail"/>}
+        {currentState === 'head' && <img src={Head} alt="head"/>}
+      </div>
+      <button className="button" onClick={() => flipCoin()}>
+        Try to Flip
+      </button>
+      <div>Total: {totalFlip}</div>
+      <div>Head: {heads}</div>
+      <div>Tail: {tails}</div>
     </div>
   );
 }
